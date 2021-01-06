@@ -59,8 +59,6 @@ class TeamsController < ApplicationController
   end
 
   def forbid_other_than_leader
-    unless current_user == @team.owner
-      redirect_to @team, notice: I18n.t('views.messages.only_leader')
-    end
+    redirect_to @team, notice: I18n.t('views.messages.only_leader') unless current_user == @team.owner
   end
 end

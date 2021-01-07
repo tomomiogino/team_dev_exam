@@ -22,6 +22,7 @@ class AssignsController < ApplicationController
   end
 
   private
+
   def assign_params
     params[:email]
   end
@@ -31,6 +32,8 @@ class AssignsController < ApplicationController
       I18n.t('views.messages.cannot_delete_the_leader')
     elsif Assign.where(user_id: assigned_user.id).count == 1
       I18n.t('views.messages.cannot_delete_only_a_member')
+    elsif current_user != assign.team.owner && current_user != assigned_user
+      I18n.t('views.messages.cannot_delete_only_leader_or_self')
     elsif assign.destroy
       set_next_team(assign, assigned_user)
       I18n.t('views.messages.delete_member')
@@ -41,9 +44,7 @@ class AssignsController < ApplicationController
 
   def email_exist?
     team = find_team(params[:team_id])
-    if team.members.exists?(email: params[:email])
-      redirect_to team_url(team), notice: I18n.t('views.messages.email_already_exists')
-    end
+    redirect_to team_url(team), notice: I18n.t('views.messages.email_already_exists') if team.members.exists?(email: params[:email])
   end
 
   def email_reliable?(address)
@@ -52,9 +53,7 @@ class AssignsController < ApplicationController
 
   def user_exist?
     team = find_team(params[:team_id])
-    unless User.exists?(email: params[:email])
-      redirect_to team_url(team), notice: I18n.t('views.messages.does_not_exist_email')
-    end
+    redirect_to team_url(team), notice: I18n.t('views.messages.does_not_exist_email') unless User.exists?(email: params[:email])
   end
 
   def set_next_team(assign, assigned_user)
@@ -63,6 +62,6 @@ class AssignsController < ApplicationController
   end
 
   def find_team(team_id)
-    team = Team.friendly.find(params[:team_id])
+    Team.friendly.find(team_id)
   end
 end

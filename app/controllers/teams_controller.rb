@@ -50,6 +50,7 @@ class TeamsController < ApplicationController
 
   def change_leader
     @team.update(owner_id: params[:owner_id])
+    ChangeTeamLeaderMailer.change_team_leader_mail(@team).deliver
     redirect_to @team, notice: I18n.t('views.messages.change_team_leader')
   end
 

@@ -224,6 +224,8 @@ ja:
       failed_to_save_team: '保存に失敗しました、、'
       update_team: 'チーム更新に成功しました！'
       delete_team: 'チーム削除に成功しました！'
+      change_team_leader: チームリーダーを変更しました！
+      change_team_leader?: チームリーダーの権限を移動させてよろしいですか？
       update_profile: 'プロフィールを編集しました！'
       complete_registration: '登録完了'
       edit_article: '記事を編集する'
@@ -262,6 +264,7 @@ ja:
       delete: '削除'
       create: '作成'
       invite: '招待'
+      change_team_leader: '権限移動'
     top:
       line1: 'このアプリケーションは、チームごと、議題ごとに別れて'
       line2: '特定のイシュー（議題）をメンバーで見やすく共有するためのアプリケーションです'

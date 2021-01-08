@@ -48,6 +48,11 @@
                         <%= link_to I18n.t('views.button.delete'), team_assign_path(@team, assign), method: :delete, class: 'btn btn-sm btn-danger', data: {confirm: I18n.t('views.messages.Are you sure?')} %>
                       <% end %>
                       </td>
+                      <td>
+                      <% if current_user != assign.user && current_user == @team.owner %>
+                        <%= link_to I18n.t('views.button.change_team_leader'), change_leader_team_path(@team, owner_id: assign.user.id), method: :patch, class: 'btn btn-sm btn-warning', data: {confirm: I18n.t('views.messages.change_team_leader?')} %>
+                      <% end %>
+                      </td>
                     </tr>
                   <% end %>
                 </tbody>

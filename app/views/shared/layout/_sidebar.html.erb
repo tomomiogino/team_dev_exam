@@ -30,13 +30,18 @@
       <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
         <% @working_team.agendas.each do |agenda| %>
           <li class="nav-item has-treeview menu-open">
-            <a href="#" class="nav-link d-inline-flex" style="min-width: 71%">
-              <p>
-                <%= agenda.title %>
-                <i class="right fa fa-angle-left"></i>
-              </p>
+            <a href="#" class="nav-link d-inline-flex align-self-center" style="width: 160px">
+              <div>
+                <i class="fa fa-circle-o nav-icon"></i>
+                <p style="white-space: line">
+                  <%= agenda.title %>
+                </p>
+                <div class="nav-link d-inline-flex">
+                  <i class="right fa fa-angle-left"></i>
+                </div>
+              </div>
             </a>
-            <%= link_to I18n.t('views.button.delete'), agenda_path(agenda), class: 'nav-link d-inline-flex', method: :delete, data: {confirm: I18n.t('views.messages.Are you sure?')} %>
+            <%= link_to I18n.t('views.button.delete'), agenda_path(agenda), class: 'nav-link d-inline-flex align-self-center', method: :delete, data: {confirm: I18n.t('views.messages.Are you sure?')} %>
             <ul class="nav nav-treeview" style="display: block;">
               <% agenda.articles.each do |article| %>
                 <li class="nav-item">

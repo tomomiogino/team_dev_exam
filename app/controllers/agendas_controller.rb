@@ -24,9 +24,11 @@ class AgendasController < ApplicationController
   def destroy
     if current_user == @agenda.user || current_user == @agenda.team.owner
       @agenda.destroy
+      DestroyAgendaMailer.destroy_agenda_mail(@agenda).deliver
       redirect_to dashboard_url, notice: I18n.t('views.messages.destroy_agenda')
     else
-      redirect_to dashboard_url, notice: I18n.t('views.messages.failed_to_create_agenda')
+      flash[:notice] = I18n.t('views.messages.failed_to_create_agenda')
+      redirect_back(fallback_location: root_path)
     end
   end
 

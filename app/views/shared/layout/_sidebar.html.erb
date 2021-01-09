@@ -41,7 +41,9 @@
                 </div>
               </div>
             </a>
-            <%= link_to I18n.t('views.button.delete'), agenda_path(agenda), class: 'nav-link d-inline-flex align-self-center', method: :delete, data: {confirm: I18n.t('views.messages.Are you sure?')} %>
+            <% if current_user == agenda.user || current_user == agenda.team.owner %>
+              <%= link_to I18n.t('views.button.delete'), agenda_path(agenda), class: 'nav-link d-inline-flex align-self-center', method: :delete, data: {confirm: I18n.t('views.messages.Are you sure?')} %>
+            <% end %>
             <ul class="nav nav-treeview" style="display: block;">
               <% agenda.articles.each do |article| %>
                 <li class="nav-item">
